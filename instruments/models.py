@@ -30,4 +30,4 @@ class Instruments(models.Model):
         ordering = ['-created']
 
     def __str__(self):
-        return f'{seld.title} by {self.owner}'
+        return f'{self.title} by {self.owner}'
