@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Instruments(models.Model):
+class Instrument(models.Model):
     """
     The Instruments Model is related to the owner model.
     It holds all the relevant data to present the instruments in

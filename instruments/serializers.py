@@ -32,5 +32,4 @@ class InstrumentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_avatar', 'created', 'updated',
             'title', 'description', 'image', 'price', 'category',
-            'image_filter',
         ]
