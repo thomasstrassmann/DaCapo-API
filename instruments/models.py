@@ -14,10 +14,12 @@ class Instrument(models.Model):
         ('other', 'Other')]
 
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    title = models.CharField(max_length=150)
-    description = models.TextField()
+    title = models.CharField(max_length=150, null=False,
+                             blank=False)
+    description = models.TextField(blank=True, null=True)
     brand = models.CharField(max_length=100)
-    price = models.DecimalField(max_digits=7, decimal_places=2)
+    price = models.DecimalField(max_digits=7, decimal_places=2, null=True,
+                                blank=True)
     image = models.ImageField(
         upload_to='images/', default='../default_instrument_xlqcqs', blank=True
     )
