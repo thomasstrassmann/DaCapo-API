@@ -10,14 +10,14 @@ class FollowerSerializer(serializers.ModelSerializer):
     follow the same user more than once.
     """
     following_username = serializers.ReadOnlyField(
-        source='following_user.username')
+        source='owner.username')
     followed_username = serializers.ReadOnlyField(
         source='followed_user.username')
 
     class Meta:
         model = Follower
         fields = [
-            'id', 'owner', 'following_username' 'created',
+            'id', 'owner', 'following_username', 'created',
             'followed_user', 'followed_username'
         ]
 
