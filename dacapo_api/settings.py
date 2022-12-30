@@ -53,6 +53,7 @@ INSTALLED_APPS = [
     'profiles',
     'instruments',
     'bookmarks',
+    'followers',
 ]
 
 MIDDLEWARE = [
