@@ -1,4 +1,4 @@
-from instrument.models import Instrument
+from instruments.models import Instrument
 from django.db import models
 from django.contrib.auth.models import User
 
