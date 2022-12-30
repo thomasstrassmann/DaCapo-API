@@ -5,7 +5,7 @@ from django.db import models
 class Follower(models.Model):
     """
     followed_user and following_user are both model instances of User.
-    unique_together is necessary to prevent someone to follow the 
+    unique_together is necessary to prevent someone to follow the
     same user twice.
     """
     followed_user = models.ForeignKey(
