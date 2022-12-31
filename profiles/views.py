@@ -3,6 +3,7 @@ from .serializers import ProfileSerializer
 from rest_framework import generics, filters
 from dacapo_api.permissions import IsOwnerOrReadOnly
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class ProfileList(generics.ListAPIView):
@@ -23,7 +24,12 @@ class ProfileList(generics.ListAPIView):
         'owner__followed__created',
     ]
     filter_backends = [
-        filters.OrderingFilter
+        filters.OrderingFilter,
+        DjangoFilterBackend,
+    ]
+
+    filterset_fields = [
+        'owner__following__followed_user__profile',
     ]
 
 

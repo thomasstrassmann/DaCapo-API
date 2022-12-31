@@ -3,6 +3,7 @@ from .serializers import InstrumentSerializer
 from rest_framework import generics, permissions, filters
 from dacapo_api.permissions import IsOwnerOrReadOnly
 from django.db.models import Count
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class InstrumentList(generics.ListCreateAPIView):
@@ -25,7 +26,15 @@ class InstrumentList(generics.ListCreateAPIView):
 
     filter_backends = [
         filters.SearchFilter,
+        DjangoFilterBackend,
         filters.OrderingFilter
+    ]
+
+    filterset_fields = [
+        'category',
+        'owner__followed__owner__profile',
+        'bookmarks__owner__profile',
+        'owner__profile',
     ]
 
     search_fields = [
