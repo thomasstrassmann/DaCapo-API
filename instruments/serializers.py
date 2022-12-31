@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from instruments.models import Instrument
+from bookmarks.models import Bookmark
 
 
 class InstrumentSerializer(serializers.ModelSerializer):
@@ -8,6 +9,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
     profile_id = serializers.ReadOnlyField(source='owner.profile.id')
     profile_avatar = serializers.ReadOnlyField(
         source='owner.profile.avatar.url')
+    bookmark_id = serializers.SerializerMethodField()
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -26,10 +28,20 @@ class InstrumentSerializer(serializers.ModelSerializer):
         request = self.context['request']
         return request.user == obj.owner
 
+    def get_bookmark_id(self, obj):
+        user = self.context['request'].user
+        if user.is_authenticated:
+            bookmark = Bookmark.objects.filter(
+                owner=user, instrument=obj
+            ).first()
+            return bookmark.id if bookmark else None
+        return None
+
     class Meta:
         model = Instrument
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_avatar', 'created', 'updated',
             'title', 'description', 'image', 'price', 'category',
+            'bookmark_id',
         ]
