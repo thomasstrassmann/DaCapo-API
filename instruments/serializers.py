@@ -10,6 +10,7 @@ class InstrumentSerializer(serializers.ModelSerializer):
     profile_avatar = serializers.ReadOnlyField(
         source='owner.profile.avatar.url')
     bookmark_id = serializers.SerializerMethodField()
+    bookmarks_count = serializers.ReadOnlyField()
 
     def validate_image(self, value):
         if value.size > 2 * 1024 * 1024:
@@ -43,5 +44,5 @@ class InstrumentSerializer(serializers.ModelSerializer):
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_avatar', 'created', 'updated',
             'title', 'description', 'image', 'price', 'category',
-            'bookmark_id',
+            'bookmark_id', 'bookmarks_count',
         ]

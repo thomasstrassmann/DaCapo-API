@@ -1,7 +1,8 @@
 from .models import Instrument
 from .serializers import InstrumentSerializer
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from dacapo_api.permissions import IsOwnerOrReadOnly
+from django.db.models import Count
 
 
 class InstrumentList(generics.ListCreateAPIView):
@@ -13,7 +14,18 @@ class InstrumentList(generics.ListCreateAPIView):
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = InstrumentSerializer
-    queryset = Instrument.objects.all()
+    queryset = Instrument.objects.annotate(
+        bookmarks_count=Count('bookmarks', distinct=True)
+    ).order_by('-created')
+
+    ordering_fields = [
+        'bookmarks_count',
+        'bookmarks__created',
+    ]
+
+    filter_backends = [
+        filters.OrderingFilter
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
@@ -27,4 +39,6 @@ class InstrumentDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = InstrumentSerializer
-    queryset = Instrument.objects.all()
+    queryset = Instrument.objects.annotate(
+        bookmarks_count=Count('bookmarks', distinct=True)
+    ).order_by('-created')
