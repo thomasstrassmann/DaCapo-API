@@ -24,7 +24,13 @@ class InstrumentList(generics.ListCreateAPIView):
     ]
 
     filter_backends = [
+        filters.SearchFilter,
         filters.OrderingFilter
+    ]
+
+    search_fields = [
+        'owner__username',
+        'title',
     ]
 
     def perform_create(self, serializer):
