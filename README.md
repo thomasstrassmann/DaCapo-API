@@ -7,6 +7,10 @@
 
 
 
+## Frontend Project (React)
+[Click here to see the frontend repository](https://)
+
+
 ## Table of contents
 1. [Introduction](#introduction) 
 2. [Preparation](#preparation)
@@ -20,14 +24,19 @@
 
 
 ## Introduction 
-
+This repository is used for version control and documentation of the DaCapo-API development process. In the following sections, general information about the approach and the different functionalities of the interface are listed, such as the schema design (models), manual and automatic testing, CRUD operations, deployment process, etc. 
 
 ## Preparation
+In terms of preparation for API development, many issues played a role: 
+* Which data should be queried / stored? What is really necessary, or perhaps even superfluous? 
+* How should this data be structured and built? What are the constraints on the data fields? 
+* How do data models relate to each other? Which dependencies exist? 
+* What do the permissions look like? What are non-authorized visitors allowed to do and what not? 
+
+In order to get an answer to these and several other questions, the data model was visualized using an entity relational diagram. This is the quickest way to visualize the schema design.
 
 ![ERD of the DaCapo-API](./static/img/documentation/erd-dacapo-api.png  "ERD of the DaCapo-API")
-
-
-schema design 
+ 
 search, filter
 
 ## Development
