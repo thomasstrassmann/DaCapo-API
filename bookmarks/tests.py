@@ -36,6 +36,12 @@ class BookmarkListViewTests(APITestCase):
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
 
+
+class BookmarkDetailViewTests(APITestCase):
+    def setUp(self):
+        User.objects.create_user(username='test', password='dacapotestapi')
+        User.objects.create_user(username='creator', password='dacapotestapi')
+
     def test_user_logged_in_can_delete_bookmark(self):
         test = User.objects.get(username='test')
         creator = User.objects.get(username='creator')
