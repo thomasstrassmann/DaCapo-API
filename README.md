@@ -1,11 +1,9 @@
-# 
-## 
+# DaCapo RESTful API
+## The backend API for the DaCapo React Project
 
+![Overview of the DaCapo-API](./static/img/documentation/root-route.png  "Overview of the DaCapo-API")
 
-![Overview of ](./  "Overview of")
-
-[Click here for the full website access](https://)
-
+[Click here for the full website access](https://dacapo-api.herokuapp.com/)
 
 
 
@@ -26,6 +24,11 @@
 
 ## Preparation
 
+![ERD of the DaCapo-API](./static/img/documentation/erd-dacapo-api.png  "ERD of the DaCapo-API")
+
+
+schema design 
+search, filter
 
 ## Development
 
