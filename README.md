@@ -3,7 +3,7 @@
 
 ![Overview of the DaCapo-API](./static/img/documentation/root-route.png  "Overview of the DaCapo-API")
 
-[Click here for the full website access](https://dacapo-api.herokuapp.com/)
+[Click here for the API access](https://dacapo-api.herokuapp.com/)
 
 
 
@@ -97,19 +97,65 @@ The API was tested manually as well as automatically. For a better overview, the
 
 **Manual testing**
 
+Manual testing of the API was done in development mode to get the useful feedback from django on bugs. The built-in django API user interface was used to run through all possible scenarios. Via the terminal 3 users were created, who then created different instruments, then updated or deleted them. The fictitious users interacted via the bookmark and follow function and no logical errors, bugs or anomalies were found. 
 
+Apart from a few typos, there were no major errors during development. The biggest and most time consuming error was a wrong setting during the deployment. 
+
+This resulted in a 400 status code when launching the API. It turned out relatively quickly that this was due to the wrong specification of the allowed host. 
 
 **Automatic testing**
 
+A small test suite was also written for each app. The profiles app is excluded from this because it is used in conjunction with the other apps anyway and is therefore tested and because a crucial operation, namely the creation of profiles, takes place with django signals. A test suite therefore seemed rather inappropriate. 
+
+For the instruments, bookmarks and followers app the following tests were written:
+
+**Instruments**
+* can view instruments
+* logged in user can create instrument
+* user not logged in cant create instrument
+* can get item using valid id
+* cant get item using invalid id
+* user can update own item
+* user cant update foreign item
+
+**Bookmarks**
+* can view bookmarks
+* logged in user can create bookmark
+* user not logged in cant create bookmark 
+* user logged in can delete bookmark 
+
+**Follower**
+* can view followers
+* logged in user can follow user
+* user not logged in cant follow user
+* user logged in can unfollow user
+
+These tests do not claim to be complete or to cover 100% of all cases, which no suite should do, as unexpected cases can always occur. However, they do provide a robust framework, making the API resilient to many errors. If, while you read this documentation, you notice that important, critical tests are missing, I would appreciate feedback. You can find all the tests in the specific app folder under tests.py.
 
 The suite consists of 15 tests, all of which pass at the time of project release.
-![Test suite](./  "Test suite")
+![Test suite](./static/img/documentation/automatic-tests.png  "Test suite")
+
 
 
 ## Deployment 
 
+In order to deploy the app on Heroku, a few steps had to be taken in advance. The integration of JSON web tokens and other related steps have already been covered under "deployment", which is why I will not go into more detail here, but rather focus on the actual deployment. 
 
-[You can access the deployed version right here](https://)
+The individual steps involved were: 
+- Creation of a PostgreSQL database on elephantsql.com
+- Creation of a Heroku App and the integration of the database with the help of an environment variable (DATABASE_URL) as well as definition of further variables: CLOUDINARY_URL, DISABLE_COLLECTSTATIC, SECRET_KEY and ALLOWED_HOST.
+- Installation of further dependencies: dj_database_url, psycopg2, gunicorn, django-cors-headers
+- Editing settings.py and env.py: configuring the DATABASE variables, setting up the DATABASE_URL environment variable
+- Database migration
+- Creation of a procfile
+- Editing the allowed hosts
+- Insertion of the cors-headers in installed apps and middleware 
+- Definition of CLIENT_ORIGIN
+- Update of requirements.txt 
+
+Only one error occurred during deployment, which has already been dealt with under manual testing. No other problems occurred. 
+
+[Click here for the deployed API](https://dacapo-api.herokuapp.com/)
 
 
 ## Notes
