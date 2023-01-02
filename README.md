@@ -70,7 +70,12 @@ Once the base of all apps was in place, more features were added towards the end
 - Cosmetic changes like the DateTime format.
 - The development of a compressed root url with useful hints (endpoints). 
 
+Before deployment, however, the JSON web tokens and authentication still had to be set up. 
+Besides installing the required dependencies (e.g. rest_framework.authtoken, dj_rest_auth, allauth etc.) the settings were adjusted to define the variable "REST_FRAMWORK" and the JWT variables. 
 
+To enable hosting on Heroku or an API in production, the creation of a database was still necessary. A PostgreSQL database was created on elephantsql.com and included in the environment variables. Data store configuration is kept in a single location (in settings.py) and therefore is easily maintainable.
+
+Last but not least, automatic tests were written for each app (except profiles). You can find more about this in the testing section of this documentation. Therefore, it was not a classic TDD approach, but these tests are still very helpful to quickly check the functionality of the API in an extension. 
 
 
 ## CRUD
