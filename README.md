@@ -139,7 +139,7 @@ The suite consists of 15 tests, all of which pass at the time of project release
 
 ## Deployment 
 
-In order to deploy the app on Heroku, a few steps had to be taken in advance. The integration of JSON web tokens and other related steps have already been covered under "deployment", which is why I will not go into more detail here, but rather focus on the actual deployment. 
+In order to deploy the app on Heroku, a few steps had to be taken in advance. The integration of JSON web tokens and other related steps have already been covered under "development", which is why I will not go into more detail here, but rather focus on the actual deployment. 
 
 The individual steps involved were: 
 - Creation of a PostgreSQL database on elephantsql.com
@@ -147,7 +147,7 @@ The individual steps involved were:
 - Installation of further dependencies: dj_database_url, psycopg2, gunicorn, django-cors-headers
 - Editing settings.py and env.py: configuring the DATABASE variables, setting up the DATABASE_URL environment variable
 - Database migration
-- Creation of a procfile
+- Creation of a Procfile
 - Editing the allowed hosts
 - Insertion of the cors-headers in installed apps and middleware 
 - Definition of CLIENT_ORIGIN
@@ -162,16 +162,58 @@ Only one error occurred during deployment, which has already been dealt with und
 
 **Security**
 
-In the course of the creation attention was paid to security at all times. All sensitive information is stored in environment variables and at no time was the project deployed to Heroku with sensible / critical information accessible. 
+In the course of the creation of this API, attention was paid to security at all times. All sensitive information (e.g. secret key) is stored in environment variables and at no time was the project deployed to Heroku with sensible / critical information accessible. 
 
 **Requirements**
 
+asgiref==3.6.0
+
+cloudinary==1.30.0
+
+dj-database-url==0.5.0
+
+dj-rest-auth==2.2.5
+
+Django==3.2.16
+
+django-allauth==0.50.0
+
+django-cloudinary-storage==0.3.0
+
+django-cors-headers==3.13.0
+
+django-filter==22.1
+
+djangorestframework==3.14.0
+
+djangorestframework-simplejwt==5.2.2
+
+gunicorn==20.1.0
+
+oauthlib==3.2.2
+
+Pillow==9.3.0
+
+psycopg2==2.9.5
+
+PyJWT==2.6.0
+
+python3-openid==3.2.0
+
+pytz==2022.7
+
+requests-oauthlib==1.3.1
+
+sqlparse==0.4.3
 
 
 
 **Custom models**
 
-
-
+The API consists of 4 custom models. However, since the profiles app is not evaluated, it consists of 3 custom models. What is custom? 
+According to the definition, these are models that have either been created completely by the student, or previously used models that have been modified. 
+Instruments is a model that I created myself. The models in bookmarks and followers were modified to meet my needs. To what extent have they been modified? Mainly the structure in the code is different. This is because I tried to learn everything by heart and not copy anything blindly. 
+So imports, expressions and the general arrangement are completely different. Also, other (variable-) names were used to make the code more readable. This makes them fundamentally different from the already known models.
 
 ## Credits
+
