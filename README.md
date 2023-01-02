@@ -160,6 +160,10 @@ Only one error occurred during deployment, which has already been dealt with und
 
 ## Notes
 
+**PEP8**
+
+All files conform to the PEP8 style guidelines. The exception to this is settings.py (list of AUTH_PASSWORD_VALIDATORS), as this is already created this way. In order not to endanger the integrity of the app, the lines were not shortened, but left as they are. 
+
 **Security**
 
 In the course of the creation of this API, attention was paid to security at all times. All sensitive information (e.g. secret key) is stored in environment variables and at no time was the project deployed to Heroku with sensible / critical information accessible. 
@@ -211,9 +215,15 @@ sqlparse==0.4.3
 **Custom models**
 
 The API consists of 4 custom models. However, since the profiles app is not evaluated, it consists of 3 custom models. What is custom? 
-According to the definition, these are models that have either been created completely by the student, or previously used models that have been modified. 
+
+According to the definition, these are models that have either been created completely by the student, or previously used models that have been modified / altered. 
 Instruments is a model that I created myself. The models in bookmarks and followers were modified to meet my needs. To what extent have they been modified? Mainly the structure in the code is different. This is because I tried to learn everything by heart and not copy anything blindly. 
-So imports, expressions and the general arrangement are completely different. Also, other (variable-) names were used to make the code more readable. This makes them fundamentally different from the already known models.
+So imports, expressions and the general arrangement are completely different. Also, other (variable-) names were used to make the code more readable. This makes them fundamentally different from the already known models, although there are also many similarities.
+
+The main reason for this is the declarative language of the Django Rest framework and the fact that a lot is done "under the hood" by Django. 
 
 ## Credits
 
+At this point I would like to thank the Code Institute instructors and team for providing the materials for Django REST Framework. The lessons were a good guide for building this API. 
+
+Also, the ensuing documentation from DRF was frequently referenced: https://www.django-rest-framework.org/
