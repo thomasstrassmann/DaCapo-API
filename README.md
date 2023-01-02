@@ -80,6 +80,16 @@ Last but not least, automatic tests were written for each app (except profiles).
 
 ## CRUD
 
+Although the CRUD functionalities can be found at the top of the documentation (root route), they are summarized here once again in a clear manner. Users can: 
+
+- create a profile.
+- list all profiles.
+- retrieve a profile and update their own.
+- list all instruments and create a new instrument.
+- retrieve a single instrument and retrieve and delete their own entries. 
+- retrieve, create and delete a bookmark if they are authenticated.
+- retrieve, create and delete a following entry if they are authenticated. 
+
 
 ## Testing 
 
