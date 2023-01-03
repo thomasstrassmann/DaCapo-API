@@ -90,6 +90,7 @@ INSTALLED_APPS = [
     'instruments',
     'bookmarks',
     'followers',
+    'wanted',
 ]
 
 SITE_ID = 1
