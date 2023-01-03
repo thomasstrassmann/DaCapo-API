@@ -14,7 +14,7 @@ class ProfileList(generics.ListAPIView):
     queryset = Profile.objects.annotate(
         instruments_count=Count('owner__instrument', distinct=True),
         followers_count=Count('owner__followed', distinct=True),
-        following_count=Count('owner__following', distinct=True)
+        following_count=Count('owner__following', distinct=True),
     ).order_by('-created')
     ordering_fields = [
         'instruments_count',
@@ -43,5 +43,5 @@ class ProfileDetail(generics.RetrieveUpdateAPIView):
     queryset = Profile.objects.annotate(
         instruments_count=Count('owner__instrument', distinct=True),
         followers_count=Count('owner__followed', distinct=True),
-        following_count=Count('owner__following', distinct=True)
+        following_count=Count('owner__following', distinct=True),
     ).order_by('-created')

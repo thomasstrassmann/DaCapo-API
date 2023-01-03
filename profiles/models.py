@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from django.db.models import Avg
+from rating.models import Rating
 
 
 class Profile(models.Model):
@@ -13,6 +15,10 @@ class Profile(models.Model):
     phone = models.CharField(max_length=20)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
+
+    def average_rating(self) -> float:
+        return Rating.objects.filter(
+            profile=self).aggregate(Avg('rating')) or 0
 
     class Meta:
         ordering = ['-created']
