@@ -12,7 +12,7 @@ class RatingSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Rating
-        fields = ['id', 'owner', 'profile', 'rating', 'created']
+        fields = ['id', 'owner', 'profile', 'rating', 'created', 'updated']
 
     def create(self, validated_data):
         try:
