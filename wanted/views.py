@@ -2,7 +2,6 @@ from .models import Wanted
 from .serializers import WantedSerializer
 from rest_framework import generics, permissions, filters
 from dacapo_api.permissions import IsOwnerOrReadOnly
-from django.db.models import Count
 from django_filters.rest_framework import DjangoFilterBackend
 
 
@@ -15,25 +14,16 @@ class WantedList(generics.ListCreateAPIView):
     """
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     serializer_class = WantedSerializer
-    queryset = Wanted.objects.annotate(
-        bookmarks_count=Count('bookmarks', distinct=True)
-    ).order_by('-created')
-
-    ordering_fields = [
-        'bookmarks_count',
-        'bookmarks__created',
-    ]
+    queryset = Wanted.objects.all()
 
     filter_backends = [
         filters.SearchFilter,
         DjangoFilterBackend,
-        filters.OrderingFilter
     ]
 
     filterset_fields = [
         'category',
         'owner__followed__owner__profile',
-        'bookmarks__owner__profile',
         'owner__profile',
     ]
 
@@ -54,6 +44,4 @@ class WantedDetail(generics.RetrieveUpdateDestroyAPIView):
     """
     permission_classes = [IsOwnerOrReadOnly]
     serializer_class = WantedSerializer
-    queryset = Wanted.objects.annotate(
-        bookmarks_count=Count('bookmarks', distinct=True)
-    ).order_by('-created')
+    queryset = Wanted.objects.all()
