@@ -11,8 +11,8 @@ class Rating(models.Model):
         ('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5)]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     profile = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
-    rating = models.CharField(max_length=50, choices=rating_choices,
-                              default='average')
+    rating = models.IntegerField(
+        choices=rating_choices, default=3)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
