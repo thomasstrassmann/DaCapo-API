@@ -48,7 +48,7 @@ The development process was aligned with the ERD as described, whereby the ERD w
 In the following, the development process is described in more detail: 
 The DRF repository and project were started first. To directly cover all security measures, environment variables (secret key and cloudinary url) were created and committed only after updating the settings. This ensured that no sensitive content was published. 
 
-Subsequently, the profiles, instruments, bookmarks and followers apps were designed, one after the other. It was avoided to work synchronously on different apps and to finish first one app completely. This has some advantages: 
+Subsequently, the profiles, instruments, bookmarks followers, wanted and rating apps were designed, one after the other. It was avoided to work synchronously on different apps and to finish first one app completely. This has some advantages: 
 * Focus on the content and increased concentration
 * Better overview (less open tabs in the editor)
 * Faster development
@@ -63,12 +63,14 @@ At first, the views were supposed to use the APIView to write more explicit code
 
 
 Once the base of all apps was in place, more features were added towards the end of API development. These included among others: 
-- Implementation of count method in bookmarks, followers and instruments to show the current state of the data.
-- The use of a search field for instruments.
-- The creation of filters in instruments and profiles (e.g. filter by instrument category or by popularity).
-- Pagination.
-- Cosmetic changes like the DateTime format.
-- The development of a compressed root url with useful hints (endpoints). 
+* Implementation of count method in bookmarks, followers and instruments to show the current state of the data.
+* The use of a search field for instruments.
+* The creation of filters in instruments and profiles (e.g. filter by instrument category or by popularity).
+* Pagination.
+* Cosmetic changes like the DateTime format.
+* The development of a compressed root url with useful hints (endpoints). 
+* The addition of the rating and wanted apps, which were added after the project was actually done, because these functionalites would be nice to have (and to guarantee custom models).
+
 
 Before deployment, however, the JSON web tokens and authentication still had to be set up. 
 Besides installing the required dependencies (e.g. rest_framework.authtoken, dj_rest_auth, allauth etc.) the settings were adjusted to define the variable "REST_FRAMWORK" and the JWT variables. 
@@ -82,13 +84,17 @@ Last but not least, automatic tests were written for each app (except profiles).
 
 Although the CRUD functionalities can be found at the top of the documentation (root route), they are summarized here once again in a clear manner. Users can: 
 
-- create a profile.
-- list all profiles.
-- retrieve a profile and update their own.
-- list all instruments and create a new instrument.
-- retrieve a single instrument and retrieve and delete their own entries. 
-- retrieve, create and delete a bookmark if they are authenticated.
-- retrieve, create and delete a following entry if they are authenticated. 
+* create a profile.
+* list all profiles.
+* retrieve a profile and update their own.
+* list all instruments and create a new instrument.
+* retrieve a single instrument and retrieve and delete their own entries. 
+* retrieve, create and delete a bookmark if they are authenticated.
+* retrieve, create and delete a following entry if they are authenticated. 
+* list the rating overview and create a rating for a user
+* retrieve a single rating, update and delete it if authenticated.
+* list and create a wanted item.
+* get, update and delete a wanted item, if you are the owner.
 
 
 ## Testing 
@@ -97,7 +103,7 @@ The API was tested manually as well as automatically. For a better overview, the
 
 **Manual testing**
 
-Manual testing of the API was done in development mode to get the useful feedback from django on bugs. The built-in django API user interface was used to run through all possible scenarios. Via the terminal 3 users were created, who then created different instruments, then updated or deleted them. The fictitious users interacted via the bookmark and follow function and no logical errors, bugs or anomalies were found. 
+Manual testing of the API was done in development mode to get the useful feedback from django on bugs. The built-in django API user interface was used to run through all possible scenarios. Via the terminal 3 users were created, who then created different instruments, then updated or deleted them. The fictitious users interacted via the bookmark, follow and rating function and no logical errors, bugs or anomalies were found. 
 
 Apart from a few typos, there were no major errors during development. The biggest and most time consuming error was a wrong setting during the deployment. 
 
@@ -105,9 +111,9 @@ This resulted in a 400 status code when launching the API. It turned out relativ
 
 **Automatic testing**
 
-A small test suite was also written for each app. The profiles app is excluded from this because it is used in conjunction with the other apps anyway and is therefore tested and because a crucial operation, namely the creation of profiles, takes place with django signals. A test suite therefore seemed rather inappropriate. 
+A test suite was also written for each app. The profiles app is excluded from this because it is used in conjunction with the other apps anyway and is therefore tested and because a crucial operation, namely the creation of profiles, takes place with django signals. A test suite therefore seemed rather inappropriate. 
 
-For the instruments, bookmarks and followers app the following tests were written:
+For the instruments, bookmarks, followers, wanted and rating app the following tests were written:
 
 **Instruments**
 * can view instruments
@@ -130,9 +136,26 @@ For the instruments, bookmarks and followers app the following tests were writte
 * user not logged in cant follow user
 * user logged in can unfollow user
 
+**Wanted**
+* can view wanted
+* logged in user can created wanted
+* user not logged in cant create wanted
+* can get wanted using valid id 
+* cant get wanted using invalid id
+* user can update own wanted
+* user cant update foreign wanted
+
+**Rating**
+* can view rating
+* logged in user can rate users
+* user not logged in cant rate user
+* user logged in can delete rating
+* user logged in can update rating
+
+
 These tests do not claim to be complete or to cover 100% of all cases, which no suite should do, as unexpected cases can always occur. However, they do provide a robust framework, making the API resilient to many errors. If, while you read this documentation, you notice that important, critical tests are missing, I would appreciate feedback. You can find all the tests in the specific app folder under tests.py.
 
-The suite consists of 15 tests, all of which pass at the time of project release.
+The suite consists of 27 tests, all of which pass at the time of project release.
 ![Test suite](./static/img/documentation/automatic-tests.png  "Test suite")
 
 
@@ -163,6 +186,11 @@ Only one error occurred during deployment, which has already been dealt with und
 **PEP8**
 
 All files conform to the PEP8 style guidelines. The exception to this is settings.py (list of AUTH_PASSWORD_VALIDATORS), as this is already created this way. In order not to endanger the integrity of the app, the lines were not shortened, but left as they are. 
+
+
+**Naming conventions**
+
+In the API project, you can see that the apps are always defined in the plural form (instruments, bookmarks etc.), except rating and wanted, which was done intentionally. There is no plural of "wanted" and the ratings are understood as a global rating, hence the singular. When using the urls you should pay attention to this change!  It is therefore not a break with the conventions, but circumstances that do not allow it otherwise. 
 
 **Security**
 
@@ -214,10 +242,12 @@ sqlparse==0.4.3
 
 **Custom models**
 
-The API consists of 4 custom models. However, since the profiles app is not evaluated, it consists of 3 custom models. What is custom? 
+The API consists of at least 3 custom models. These are: Instrument, Rating and Wanted. 
+You could even argue there are 5 custom models. 
 
-According to the definition, these are models that have either been created completely by the student, or previously used models that have been modified / altered. 
-Instruments is a model that I created myself. The models in bookmarks and followers were modified to meet my needs. To what extent have they been modified? Mainly the structure in the code is different. This is because I tried to learn everything by heart and not copy anything blindly. 
+According to the definition, custom models that have either been created completely by the student, or previously used models that have been modified / altered. 
+
+Instruments, Wanted and Rating are models that I created myself. The models in bookmarks and followers were modified to meet my needs. To what extent have they been modified? Mainly the structure in the code is different. This is because I tried to learn everything by heart and not copy anything blindly. 
 So imports, expressions and the general arrangement are completely different. Also, other (variable-) names were used to make the code more readable. This makes them fundamentally different from the already known models, although there are also many similarities.
 
 The main reason for this is the declarative language of the Django Rest framework and the fact that a lot is done "under the hood" by Django. 
@@ -227,3 +257,5 @@ The main reason for this is the declarative language of the Django Rest framewor
 At this point I would like to thank the Code Institute instructors and team for providing the materials for Django REST Framework. The lessons were a good guide for building this API. 
 
 Also, the ensuing documentation from DRF was frequently referenced: https://www.django-rest-framework.org/
+
+I also want to give credit to Timur Bakibayev, author of the following article: https://medium.com/geekculture/django-implementing-star-rating-e1deff03bb1c. The idea to implement a rating model in a specific way was derived from this article. 
