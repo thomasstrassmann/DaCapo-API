@@ -12,13 +12,17 @@ def root_route(request):
                      "Hello and welcome to the dacapo-rest-api! You can "
                      "access the following endpoints:",
                      "profiles/": "GET",
-                     "profiles/id": "GET, PUT",
+                     "profiles/id/": "GET, PUT",
                      "instruments/": "GET, POST",
-                     "instruments/id": "GET, PUT, DELETE",
+                     "instruments/id/": "GET, PUT, DELETE",
                      "bookmarks/": "GET, POST",
-                     "bookmarks/id": "GET, DELETE",
+                     "bookmarks/id/": "GET, DELETE",
                      "followers/": "GET, POST",
-                     "followers/id": "GET, DELETE"
+                     "followers/id/": "GET, DELETE",
+                     "wanted/": "GET, POST",
+                     "wanted/id/": "GET, PUT, DELETE",
+                     "rating/": "GET, POST",
+                     "rating/id/": "GET, PUT, DELETE"
                      })
 
 
