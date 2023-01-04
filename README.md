@@ -8,7 +8,7 @@
 
 
 ## Frontend Project (React)
-[Click here to see the frontend repository](https://)
+[Click here to see the frontend repository](https://github.com/thomasstrassmann/dacapo)
 
 
 ## Table of contents
@@ -165,16 +165,16 @@ The suite consists of 27 tests, all of which pass at the time of project release
 In order to deploy the app on Heroku, a few steps had to be taken in advance. The integration of JSON web tokens and other related steps have already been covered under "development", which is why I will not go into more detail here, but rather focus on the actual deployment. 
 
 The individual steps involved were: 
-- Creation of a PostgreSQL database on elephantsql.com
-- Creation of a Heroku App and the integration of the database with the help of an environment variable (DATABASE_URL) as well as definition of further variables: CLOUDINARY_URL, DISABLE_COLLECTSTATIC, SECRET_KEY and ALLOWED_HOST.
-- Installation of further dependencies: dj_database_url, psycopg2, gunicorn, django-cors-headers
-- Editing settings.py and env.py: configuring the DATABASE variables, setting up the DATABASE_URL environment variable
-- Database migration
-- Creation of a Procfile
-- Editing the allowed hosts
-- Insertion of the cors-headers in installed apps and middleware 
-- Definition of CLIENT_ORIGIN
-- Update of requirements.txt 
+* Creation of a PostgreSQL database on elephantsql.com
+* Creation of a Heroku App and the integration of the database with the help of an environment variable (DATABASE_URL) as well as definition of further variables: CLOUDINARY_URL, DISABLE_COLLECTSTATIC, SECRET_KEY and ALLOWED_HOST.
+* Installation of further dependencies: dj_database_url, psycopg2, gunicorn, django-cors-headers
+* Editing settings.py and env.py: configuring the DATABASE variables, setting up the DATABASE_URL environment variable
+* Database migration
+* Creation of a Procfile
+* Editing the allowed hosts
+* Insertion of the cors-headers in installed apps and middleware 
+* Definition of CLIENT_ORIGIN
+* Update of requirements.txt 
 
 Only one error occurred during deployment, which has already been dealt with under manual testing. No other problems occurred. 
 
