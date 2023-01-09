@@ -43,6 +43,6 @@ class InstrumentSerializer(serializers.ModelSerializer):
         fields = [
             'id', 'owner', 'is_owner', 'profile_id',
             'profile_avatar', 'created', 'updated',
-            'title', 'description', 'image', 'price', 'category',
+            'title', 'description', 'image', 'price', 'brand', 'category',
             'bookmark_id', 'bookmarks_count',
         ]
