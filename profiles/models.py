@@ -18,7 +18,7 @@ class Profile(models.Model):
 
     def average_rating(self) -> float:
         return Rating.objects.filter(
-            profile=self).aggregate(Avg('rating'))["rating__avg"] or 0
+            profile_id=self).aggregate(Avg('rating'))["rating__avg"] or 0
 
     class Meta:
         ordering = ['-created']
