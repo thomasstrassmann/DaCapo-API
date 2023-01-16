@@ -18,7 +18,8 @@ class InstrumentListViewTests(APITestCase):
     def test_logged_in_user_can_create_instrument(self):
         self.client.login(username='test', password='dacapotestapi')
         response = self.client.post(
-            '/instruments/', {'title': 'an instrument'})
+            '/instruments/', {'title': 'an instrument',
+                              'brand': 'test brand'})
         count = Instrument.objects.count()
 
         self.assertEqual(count, 1)
@@ -60,7 +61,8 @@ class InstrumentDetailViewTests(APITestCase):
     def test_user_can_update_own_item(self):
         self.client.login(username='owner1', password='newpassword')
         response = self.client.put(
-            '/instruments/1/', {'title': 'a brand new instrument'})
+            '/instruments/1/', {'title': 'a brand new instrument',
+                                'brand': 'test brand'})
         instrument = Instrument.objects.filter(pk=1).first()
 
         self.assertEqual(instrument.title, 'a brand new instrument')

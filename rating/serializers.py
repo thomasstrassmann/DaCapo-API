@@ -9,13 +9,14 @@ class RatingSerializer(serializers.ModelSerializer):
     The create method handles duplicates (Integrity errors).
     """
     owner = serializers.ReadOnlyField(source='owner.username')
+    owner_id = serializers.ReadOnlyField(source='owner.id')
     rated_user = serializers.ReadOnlyField(
-        source='profile.owner.username')
+        source='profile_id.owner.username')
 
     class Meta:
         model = Rating
-        fields = ['id', 'owner', 'profile', 'rated_user', 'rating',
-                  'created', 'updated']
+        fields = ['id', 'owner', 'owner_id', 'rated_user', 'profile_id',
+                  'rating', 'created', 'updated']
 
     def create(self, validated_data):
         try:

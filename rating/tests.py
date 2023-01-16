@@ -15,7 +15,7 @@ class RatingListViewTests(APITestCase):
         owner2 = Profile.objects.get(id=2)
 
         Rating.objects.create(
-           id=1, owner=owner1, profile=owner2, rating=3)
+           id=1, owner=owner1, profile_id=owner2, rating=3)
         response = self.client.get('/rating/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -27,7 +27,7 @@ class RatingListViewTests(APITestCase):
         self.client.login(username='owner1', password='dacapotestapi')
         response = self.client.post(
             '/rating/', {'owner': owner1,
-                         'profile': 2,
+                         'profile_id': 2,
                          'rating': 3})
         count = Rating.objects.count()
 
@@ -40,7 +40,7 @@ class RatingListViewTests(APITestCase):
 
         response = self.client.post(
             '/rating/', {'owner': owner1,
-                         'profile': 2,
+                         'profile_id': 2,
                          'rating': 3})
 
         self.assertEqual(response.status_code, status.HTTP_403_FORBIDDEN)
@@ -55,7 +55,7 @@ class RatingDetailViewTests(APITestCase):
         owner2 = Profile.objects.get(id=2)
 
         Rating.objects.create(
-            owner=owner1, profile=owner2, rating=3)
+            owner=owner1, profile_id=owner2, rating=3)
 
     def test_user_logged_in_can_delete_rating(self):
         owner1 = User.objects.get(username='owner1')
@@ -73,7 +73,7 @@ class RatingDetailViewTests(APITestCase):
         self.client.login(username='owner1', password='dacapotestapi')
         response = self.client.put(
             '/rating/1/', {'owner': owner1,
-                           'profile': 2,
+                           'profile_id': 2,
                            'rating': 5})
         put_rating = Rating.objects.filter(pk=1).first()
 

@@ -10,7 +10,8 @@ class Rating(models.Model):
     rating_choices = [
         ('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5)]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
-    profile = models.ForeignKey('profiles.Profile', on_delete=models.CASCADE)
+    profile_id = models.ForeignKey(
+        'profiles.Profile', on_delete=models.CASCADE)
     rating = models.IntegerField(
         choices=rating_choices, default=3)
     created = models.DateTimeField(auto_now_add=True)
@@ -18,7 +19,7 @@ class Rating(models.Model):
 
     class Meta:
         ordering = ['-created']
-        unique_together = ['profile', 'owner']
+        unique_together = ['profile_id', 'owner']
 
     def __str__(self):
-        return f"{self.owner} rates {self.profile} with {self.rating}"
+        return f"{self.owner} rates {self.profile_id} with {self.rating}"
