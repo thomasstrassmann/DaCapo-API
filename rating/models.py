@@ -8,7 +8,7 @@ class Rating(models.Model):
     user can rate a profile based on the previous shopping experience.
     """
     rating_choices = [
-        ('1', 1), ('2', 2), ('3', 3), ('4', 4), ('5', 5)]
+        (1, '1'), (2, '2'), (3, '3'), (4, '4'), (5, '5')]
     owner = models.ForeignKey(User, on_delete=models.CASCADE)
     profile_id = models.ForeignKey(
         'profiles.Profile', on_delete=models.CASCADE)
