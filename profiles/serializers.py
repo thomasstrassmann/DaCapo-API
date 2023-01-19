@@ -5,6 +5,7 @@ from .models import Profile
 
 class ProfileSerializer(serializers.ModelSerializer):
     owner = serializers.ReadOnlyField(source='owner.username')
+    email = serializers.ReadOnlyField(source='owner.email')
     is_owner = serializers.SerializerMethodField()
     following_id = serializers.SerializerMethodField()
     instruments_count = serializers.ReadOnlyField()

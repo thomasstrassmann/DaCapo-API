@@ -11,7 +11,6 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to='images/', default='../default_profile_srtwni'
     )
-    email = models.EmailField(max_length=254)
     phone = models.CharField(max_length=20)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
