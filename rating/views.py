@@ -20,6 +20,7 @@ class RatingList(generics.ListCreateAPIView):
 
     filterset_fields = [
         'owner__id',
+        'profile_id'
     ]
 
     def perform_create(self, serializer):
