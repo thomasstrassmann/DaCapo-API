@@ -1,7 +1,8 @@
 from .models import Follower
-from rest_framework import generics, permissions
+from rest_framework import generics, permissions, filters
 from .serializers import FollowerSerializer
 from dacapo_api.permissions import IsOwnerOrReadOnly
+from django_filters.rest_framework import DjangoFilterBackend
 
 
 class FollowerList(generics.ListCreateAPIView):
@@ -14,6 +15,11 @@ class FollowerList(generics.ListCreateAPIView):
     serializer_class = FollowerSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
     queryset = Follower.objects.all()
+    filter_backends = [DjangoFilterBackend]
+
+    filterset_fields = [
+        'owner'
+    ]
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
