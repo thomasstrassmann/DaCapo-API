@@ -7,7 +7,7 @@ from rating.models import Rating
 
 class Profile(models.Model):
     owner = models.OneToOneField(User, on_delete=models.CASCADE)
-    username = models.CharField(max_length=150, blank=True)
+    username = models.CharField(max_length=12, blank=True)
     avatar = models.ImageField(
         upload_to='images/', default='../default_profile_srtwni'
     )
