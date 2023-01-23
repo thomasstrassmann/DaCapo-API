@@ -11,7 +11,7 @@ class Profile(models.Model):
     avatar = models.ImageField(
         upload_to='images/', default='../default_profile_srtwni'
     )
-    phone = models.CharField(max_length=20)
+    phone = models.CharField(max_length=20, null=True, blank=True)
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
 
