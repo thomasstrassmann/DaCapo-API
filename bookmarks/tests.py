@@ -12,7 +12,8 @@ class BookmarkListViewTests(APITestCase):
 
     def test_can_view_bookmarks(self):
         test = User.objects.get(username='test')
-        Instrument.objects.create(owner=test, title='an instrument')
+        Instrument.objects.create(
+            owner=test, title='an instrument', price='500')
         bookmarked_instrument = Instrument.objects.get(title="an instrument")
         Bookmark.objects.create(owner=test, instrument=bookmarked_instrument)
         response = self.client.get('/bookmarks/')
@@ -22,7 +23,8 @@ class BookmarkListViewTests(APITestCase):
     def test_logged_in_user_can_create_bookmark(self):
         self.client.login(username='test', password='dacapotestapi')
         creator = User.objects.get(username='creator')
-        Instrument.objects.create(owner=creator, title='an instrument')
+        Instrument.objects.create(
+            owner=creator, title='an instrument', price='500')
         response = self.client.post(
             '/bookmarks/', {'instrument': 1})
         count = Bookmark.objects.count()
@@ -45,7 +47,8 @@ class BookmarkDetailViewTests(APITestCase):
     def test_user_logged_in_can_delete_bookmark(self):
         test = User.objects.get(username='test')
         creator = User.objects.get(username='creator')
-        Instrument.objects.create(owner=creator, title='an instrument')
+        Instrument.objects.create(
+            owner=creator, title='an instrument', price='500')
 
         self.client.login(username='test', password='dacapotestapi')
         self.client.post('/bookmarks/', {'title': 'an instrument'})

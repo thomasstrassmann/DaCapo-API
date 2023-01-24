@@ -10,7 +10,8 @@ class InstrumentListViewTests(APITestCase):
 
     def test_can_view_instruments(self):
         test = User.objects.get(username='test')
-        Instrument.objects.create(owner=test, title='an instrument')
+        Instrument.objects.create(
+            owner=test, title='an instrument', price='100', image=None)
         response = self.client.get('/instruments/')
 
         self.assertEqual(response.status_code, status.HTTP_200_OK)
@@ -19,7 +20,8 @@ class InstrumentListViewTests(APITestCase):
         self.client.login(username='test', password='dacapotestapi')
         response = self.client.post(
             '/instruments/', {'title': 'an instrument',
-                              'brand': 'test brand'})
+                              'brand': 'test brand',
+                              'price': 599.00})
         count = Instrument.objects.count()
 
         self.assertEqual(count, 1)
@@ -40,11 +42,13 @@ class InstrumentDetailViewTests(APITestCase):
             username='owner2', password='newpassword')
 
         Instrument.objects.create(
-            owner=owner1, title='an instrument', description='owner1 item'
+            owner=owner1, title='an instrument', description='owner1 item',
+            price=100.00
         )
 
         Instrument.objects.create(
-            owner=owner2, title='another instrument', description='owner2 item'
+            owner=owner2, title='another instrument',
+            description='owner2 item', price=200.00
         )
 
     def test_can_get_item_using_valid_id(self):
@@ -62,7 +66,8 @@ class InstrumentDetailViewTests(APITestCase):
         self.client.login(username='owner1', password='newpassword')
         response = self.client.put(
             '/instruments/1/', {'title': 'a brand new instrument',
-                                'brand': 'test brand'})
+                                'brand': 'test brand',
+                                'price': 150})
         instrument = Instrument.objects.filter(pk=1).first()
 
         self.assertEqual(instrument.title, 'a brand new instrument')
