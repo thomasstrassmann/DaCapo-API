@@ -10,6 +10,9 @@
 ## Frontend Project (React)
 [Click here to see the frontend repository](https://github.com/thomasstrassmann/dacapo)
 
+[Click here to see the deployed frontend app](https://dacapo.herokuapp.com/)
+
+
 
 ## Table of contents
 1. [Introduction](#introduction) 
@@ -43,7 +46,7 @@ The creation of the ERD was actually the first step and was used as a guide duri
 
 The development process was aligned with the ERD as described, whereby the ERD was essentially determined by the user stories of the frontend. From this point of view, all functions and options of the frontend were the source of ideas for the backend development and must therefore not be omitted at this point: 
 
-[Click here to see the user stories of the frontend](https://)
+[Click here to see the user stories of the frontend](https://github.com/users/thomasstrassmann/projects/4/views/1?visibleFields=%5B%22Title%22%2C%22Labels%22%2C%22Status%22%5D)
 
 In the following, the development process is described in more detail: 
 The DRF repository and project were started first. To directly cover all security measures, environment variables (secret key and cloudinary url) were created and committed only after updating the settings. This ensured that no sensitive content was published. 
