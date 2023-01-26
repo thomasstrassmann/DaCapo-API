@@ -108,6 +108,22 @@ The API was tested manually as well as automatically. For a better overview, the
 
 Manual testing of the API was done in development mode to get the useful feedback from django on bugs. The built-in django API user interface was used to run through all possible scenarios. Via the terminal 3 users were created, who then created different instruments, then updated or deleted them. The fictitious users interacted via the bookmark, follow and rating function and no logical errors, bugs or anomalies were found. 
 
+Here is a complete overview of the procedures and results of manual testing: 
+| Test case                      | Procedure                                        | Outcome   |
+| ------------------------------ | ------------------------------------------------ | --------- |
+| GET profiles | type in /profiles after the base url and get a complete list | passed |
+| GET, PUT profiles/id | get a profile by id in the url and edit own profile, check the results | passed |
+| GET, POST instruments | get a list with /instruments and post an instrument in the same endpoint, check the newly created instrument | passed |
+| GET, PUT, DELETE instruments/id | get, update and delete an instrument with /instruments/id after the base url and compare the expectations to the results | passed |
+| GET, POST bookmarks| get a list of all bookmarks and post a bookmark with an authenticated user | passed |
+| GET, DELETE bookmarks/id | get a specific bookmark by id and delete it, if it is a bookmark of the authenticated user | passed |
+| GET, POST followers | get a list of all followers and post a new follower relationship in the listview, check the results for errors | passed |
+| GET, DELETE followers/id | get a specific bookmark id and delete it, if it is one of the logged in user | passed |
+| GET, POST wanted | get all wanted items and post a new one in the list view, check the results for errors | passed |
+| GET, PUT, DELETE wanted/id | retrieve, update and delete a wanted item of a specific user, check the results in the list view | passed |
+| GET, POST rating | get all ratings in the list view and post a new rating relationship, check the status in the list view again | passed |
+| GET, PUT, DELETE rating/id | get, update and delete a specific rating, if it is one of the logged in user | passed |
+
 Apart from a few typos, there were no major errors during development. The biggest and most time consuming error was a wrong setting during the deployment. 
 
 This resulted in a 400 status code when launching the API. It turned out relatively quickly that this was due to the wrong specification of the allowed host. 
